@@ -7,15 +7,13 @@ public class Charm {
 	private int id;
 	private String name;
 	private String description;
-	private long price;
-	public static int counter;
+	private int price;
 	
 	public Charm() {
 		super();
-		this.id = counter;
-		counter++;
 	}
-	public Charm(String name, String description, long price) {
+	
+	public Charm(String name, String description, int price) {
 		this();
 		this.name = name;
 		this.description = description;
@@ -40,10 +38,10 @@ public class Charm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public long getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(long price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	
