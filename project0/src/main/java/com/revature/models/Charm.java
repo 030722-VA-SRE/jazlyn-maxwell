@@ -3,27 +3,28 @@ package com.revature.models;
 import java.util.Objects;
 
 public class Charm {
-	
+
 	private int id;
 	private String name;
 	private String description;
 	private int price;
 	private Region region;
-	private User seller;
-	
+	private int sellerId;
+
 	public Charm() {
 		super();
 	}
-	
-	public Charm(String name, String description, int price, Region region, User seller) {
+
+	public Charm(int id, String name, String description, int price, Region region, int sellerId) {
 		this();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.region = region;
-		this.seller = seller;
+		this.sellerId = sellerId;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -54,16 +55,16 @@ public class Charm {
 	public void setRegion(Region region) {
 		this.region = region;
 	}
-	public User getSeller() {
-		return seller;
+	public int getSellerId() {
+		return sellerId;
 	}
-	public void setSeller(User seller) {
-		this.seller = seller;
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, name, price, region, seller);
+		return Objects.hash(description, id, name, price, region, sellerId);
 	}
 
 	@Override
@@ -76,14 +77,14 @@ public class Charm {
 			return false;
 		Charm other = (Charm) obj;
 		return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
-				&& price == other.price && Objects.equals(region, other.region) && Objects.equals(seller, other.seller);
+				&& price == other.price && Objects.equals(region, other.region) && Objects.equals(sellerId, other.sellerId);
 	}
 
 	@Override
 	public String toString() {
 		return "Charm [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", region="
-				+ region + ", seller=" + seller + "]";
+				+ region + ", seller=" + sellerId + "]";
 	}
 
-	
+
 }

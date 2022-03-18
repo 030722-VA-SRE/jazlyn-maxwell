@@ -1,55 +1,41 @@
 -- Drop tables if they already exist
-drop table if exists charm;
-drop table if exists region;
-drop table if exists account;
-drop table if exists "user";
+drop table if exists charms;
+drop table if exists regions;
+drop table if exists users;
 
 
 -- Create new database tables
-create table "user"(
-	id serial primary key,
-	name varchar(20) not null,
-	username varchar(30) unique not null,
-	password varchar(30) not null
+create table users(
+	user_id serial primary key,
+	user_name varchar(30) unique not null,
+	user_pass varchar(30) not null,
+	user_balance integer not null
 );
 
-create table account(
-	id serial primary key,
-	balance integer,
-	user_id integer references "user"(id)
+create table regions(
+	region_id serial primary key,
+	region_name varchar(30) not null,
+	region_country varchar(20) not null
 );
 
-create table region(
-	id serial primary key,
-	name varchar(30) not null,
-	country varchar(20) not null
-);
-
-create table charm(
-	id serial primary key,
-	name varchar(50) not null,
-	description varchar(250) not null,
-	price integer not null,
-	region_id integer references region(id),
-	user_id integer references "user"(id)
+create table charms(
+	charm_id serial primary key,
+	charm_name varchar(50) not null,
+	charm_desc varchar(250) not null,
+	charm_price integer not null,
+	region_id integer references regions(region_id),
+	user_id integer references users(user_id)
 );
 
 -- Insert values into tables
-insert into "user"(name, username, password) values 
-	('Salubra', 'charm_lover', '12345678'),
-	('Sly', 'great_nailsage', '12345678'),
-	('Leg Eater', 'leg_eater', '12345678'),
-	('Iselda', 'mrs_cartographer', '12345678'),
-	('Candelaria', 'flea_market', '12345678');
+insert into users(user_name, user_pass, user_balance) values 
+	('Salubra', '12345678', 0),
+	('Sly', '12345678', 0),
+	('Leg Eater', '12345678', 0),
+	('Iselda', '12345678', 0),
+	('Candelaria', '12345678', 0);
 	
-insert into account(balance, user_id) values 
-	(0, 1),
-	(0, 2),
-	(0, 3),
-	(0, 4),
-	(0, 5);
-	
-insert into region(name, country) values 
+insert into regions(region_name, region_country) values 
 	('Forgotten Crossroads', 'Hallownest'),
 	('Dirtmouth', 'Hallownest'),
 	('Fungal Wastes', 'Hallownest'),
@@ -57,7 +43,7 @@ insert into region(name, country) values
 	('Graveyard of the Peaks', 'Cvstodia'),
 	('The Sleeping Canvases', 'Cvstodia');
 	
-insert into charm(name, description, price, region_id, user_id) values
+insert into charms(charm_name, charm_desc, charm_price, region_id, user_id) values
 	('Lifeblood Heart', 'When resting, the bearer will gain a coating of lifeblood that protects from a modest amount of damage.', 250, 1, 1),
 	('Longnail', 'Increases the range of the bearer''s nail, allowing them to strike foes from further away.', 300, 1, 1),
 	('Steady Body', 'Allows one to stay steady and keep attacking.', 120, 1, 1),
@@ -78,6 +64,6 @@ insert into charm(name, description, price, region_id, user_id) values
 	('Wicker Knot', 'Bead braided in a spiral motion, covered with a light coat of varnish that has protected it from the wear and tear of the years. A mother''s hands worked these strands and blessed them. Their influence provides protection from toxic damage.', 4000, 6, 5);
 
 -- Display table contents
-select * from charm
-join "user" as u on charm.user_id = u.id 
-join region on charm.region_id = region.id;
+select * from charms as c
+join users as u on c.user_id = u.user_id 
+join regions as r on c.region_id = r.region_id;

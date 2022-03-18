@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class User {
 	private int id;
-	private String name;
 	private String username;
 	private String password;
+	private int balance;
 	
 	public User() {
 		super();
 	}
 	
-	public User(int id, String name, String username, String password) {
+	public User(int id, String username, String password, int balance) {
 		super();
 		this.id = id;
-		this.name = name;
 		this.username = username;
 		this.password = password;
+		this.balance = balance;
 	}
 
 	public int getId() {
@@ -26,14 +26,6 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public String getUsername() {
@@ -52,9 +44,17 @@ public class User {
 		this.password = password;
 	}
 
+	public int getBalance() {
+		return balance;
+	}
+	
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, password, username);
+		return Objects.hash(balance, id, password, username);
 	}
 
 	@Override
@@ -66,14 +66,13 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(password, other.password)
+		return balance == other.balance && id == other.id && Objects.equals(password, other.password)
 				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", balance=" + balance + "]";
 	}
-
 	
 }

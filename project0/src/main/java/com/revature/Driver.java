@@ -1,44 +1,35 @@
 package com.revature;
 
+import static io.javalin.apibuilder.ApiBuilder.delete;
+import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.path;
+import static io.javalin.apibuilder.ApiBuilder.post;
+import static io.javalin.apibuilder.ApiBuilder.put;
+
+import com.revature.controllers.CharmController;
+
+import io.javalin.Javalin;
+
 public class Driver {
 	
 	public static void main(String[] args) {
-//		Javalin app = Javalin.create((config) -> {
-//			
-//		});
-//		
-//		app.start();
-//		
-//		Charm c1 = new Charm("Horseshoe", 
-//				"Purple object that increases luck by 15% found in the forests of the South.", 
-//				500);
-//		Charm c2 = new Charm("Medal of Devastation",
-//				"Increases the attack power of the wearer by over 9000.",
-//				1200);
-//		
-//		charms.add(c1);
-//		
-//		app.get("charms", (ctx) -> {
-//			ctx.json(charms);
-//		});
-//		
-//		app.get("charms/{id}", (ctx) -> {
-//			int id = Integer.parseInt(ctx.pathParam("id"));
-//			Charm c = null;
-//			
-//			for (Charm charm : charms) {
-//				if (charm.getId() == id) {
-//					c = charm;
-//				}
-//			}
-//			
-//			if (c == null) {
-//				ctx.status(404);
-//			}
-//			else {
-//				ctx.json(c);
-//			}
-//		});
+		Javalin app = Javalin.create((config) -> {
+			config.defaultContentType = "application/json";
+		});
 		
+		app.start(8080);
+		
+		app.routes(() -> {
+			path("charm", () -> {
+				get(CharmController::getCharms);
+				post(CharmController::createCharm);
+				
+				path("{id}", () -> {
+					get(CharmController::getCharmById);
+					put(CharmController::updateCharm);
+					delete(CharmController::deleteCharm);
+				});
+			});
+		});
 	}
 }

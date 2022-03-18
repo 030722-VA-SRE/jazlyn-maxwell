@@ -8,7 +8,6 @@ public interface CharmDao {
 	public int createCharm(Charm charm);
 	public List<Charm> getCharms();
 	public Charm getCharmById(int id);
-//	public List<Charm> getCharmBySearch()
 	public boolean updateCharm(Charm charm);
-	public boolean deleteCharmById(int id);
+	public boolean deleteCharm(int id);
 }
