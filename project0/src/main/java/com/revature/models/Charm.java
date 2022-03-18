@@ -8,16 +8,20 @@ public class Charm {
 	private String name;
 	private String description;
 	private int price;
+	private Region region;
+	private User seller;
 	
 	public Charm() {
 		super();
 	}
 	
-	public Charm(String name, String description, int price) {
+	public Charm(String name, String description, int price, Region region, User seller) {
 		this();
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.region = region;
+		this.seller = seller;
 	}
 	
 	public int getId() {
@@ -44,11 +48,24 @@ public class Charm {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public Region getRegion() {
+		return region;
+	}
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+	public User getSeller() {
+		return seller;
+	}
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, name, price);
+		return Objects.hash(description, id, name, price, region, seller);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,12 +75,15 @@ public class Charm {
 		if (getClass() != obj.getClass())
 			return false;
 		Charm other = (Charm) obj;
-		return Objects.equals(description, other.description) && Objects.equals(name, other.name)
-				&& price == other.price;
+		return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
+				&& price == other.price && Objects.equals(region, other.region) && Objects.equals(seller, other.seller);
 	}
+
 	@Override
 	public String toString() {
-		return name + ": " + description;
+		return "Charm [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", region="
+				+ region + ", seller=" + seller + "]";
 	}
+
 	
 }

@@ -1,16 +1,7 @@
 package com.revature;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.revature.models.Charm;
-
-import io.javalin.Javalin;
-
 public class Driver {
 	
-	private static List<Charm> charms = new ArrayList<>();
-
 	public static void main(String[] args) {
 //		Javalin app = Javalin.create((config) -> {
 //			

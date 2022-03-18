@@ -8,6 +8,11 @@ public class ConnectionUtil {
 
 	private static Connection con;
 	
+	private ConnectionUtil() {
+		// private constructor to guarantee ConnectionUtil will not be instantiated
+		super();
+	}
+	
 	public static Connection getConnection() throws SQLException {
 		// Use environment variables to create connection.
 		
