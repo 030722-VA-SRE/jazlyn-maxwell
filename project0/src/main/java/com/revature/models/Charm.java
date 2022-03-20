@@ -8,20 +8,32 @@ public class Charm {
 	private String name;
 	private String description;
 	private int price;
-	private Region region;
+	private String region;
+	private String country;
 	private int sellerId;
 
 	public Charm() {
 		super();
 	}
-
-	public Charm(int id, String name, String description, int price, Region region, int sellerId) {
-		this();
+	
+	public Charm(String name, String description, int price, String region, String country, int sellerId) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.region = region;
+		this.country = country;
+		this.sellerId = sellerId;
+	}
+	
+	public Charm(int id, String name, String description, int price, String region, String country, int sellerId) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.region = region;
+		this.country = country;
 		this.sellerId = sellerId;
 	}
 
@@ -49,11 +61,17 @@ public class Charm {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Region getRegion() {
+	public String getRegion() {
 		return region;
 	}
-	public void setRegion(Region region) {
+	public void setRegion(String region) {
 		this.region = region;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	public int getSellerId() {
 		return sellerId;
@@ -64,7 +82,7 @@ public class Charm {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, name, price, region, sellerId);
+		return Objects.hash(country, description, id, name, price, region, sellerId);
 	}
 
 	@Override
@@ -76,14 +94,15 @@ public class Charm {
 		if (getClass() != obj.getClass())
 			return false;
 		Charm other = (Charm) obj;
-		return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
-				&& price == other.price && Objects.equals(region, other.region) && Objects.equals(sellerId, other.sellerId);
+		return Objects.equals(country, other.country) && Objects.equals(description, other.description)
+				&& id == other.id && Objects.equals(name, other.name) && price == other.price
+				&& Objects.equals(region, other.region) && sellerId == other.sellerId;
 	}
 
 	@Override
 	public String toString() {
 		return "Charm [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", region="
-				+ region + ", seller=" + sellerId + "]";
+				+ region + ", country=" + country + ", sellerId=" + sellerId + "]";
 	}
 
 
