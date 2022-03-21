@@ -313,36 +313,85 @@ Given the following table 'employees'...
 ### Cloud / AWS Overview
 * How would you describe AWS? What is "the cloud" or "cloud computing" and why is it so popular now?
 
+    - Amazon Web Services (AWS) is a suite of online, cloud-based services utilizing Amazon's
+    large network of data centers.
+    - *The cloud* refers to networks of servers accessed over the internet and the software 
+    and databases running on those off-site servers. Cloud computing leverages the economy of 
+    scale: it is much cheaper for Amazon staff to manage and upgrade a bunch of servers 
+    located in one data center accessed by many different users than it is for every user to 
+    have their own on-site servers. Users can also pay for what they use, with an adaptable, 
+    auto-scaling service. The services offered on the cloud are also durable, as there are 
+    many available servers in case one goes down.
+
 * Define Infrastructure, Platform, and Software as a Service
+
+    - IaaS is infrastructure as a service. Users can access a company's infrastructure, but 
+    must provide their own applications, data, runtime environments, middleware, and 
+    operating systems.
+    - PaaS is platform as a service. Users are able to access a platform, operating system 
+    and runtime environments included. Users still need to provided their own applications 
+    and data, however.
+    - SaaS is software as a service. Users are able to use software. Users know *what* the software does but not *how* it does it.
  
 * What's the difference between a Region and an Availability Zone (AZ)?
+
+    - A region is a group of AWS zones available online.
+    - An AZ is a data center containing infrastructure. 
  
 * How are you charged for using AWS services? Does it vary by service?
  
+    - Services are pay-as-you-go. The pricing structure is different depending on the service.
+
 * Different ways to interact with AWS services?
 
+    - AWS provdes command line tools, APIs, SDKs, as well as the AWS console web-based GUI (on the AWS website).
 
 ### EC2
 
 * What are the configuration options for EC2?
+
+    - An Amazon Machine Image (AMI), instance types, and security groups can all be configured.
  
 * What are the different EC2 instance sizes/types?
+
+    - EC2 has many different instance sizes and types, with various amounts of computing power and memory. Instances are optimized for different purposes, such as Compute Optimzed, Memory Optimized, Accelerated Computing, and Storage Optimized.
  
 * Once you create an EC2, how to connect to it?
+
+    - SSH into an EC2 after creating it. During instance creation, you will download an rsa 
+    file. Open a command prompt in the same location as that file. Then, run the ssh -i 
+    command using the file and the addresss of the EC2.
  
 * What are Security Groups? When defining a rule for a security group, what 3 things do you need to specify?
+
+    - A security group allows you to control incoming and outgoing traffic based on the Ip addresses, protocolas, and port numbers.
+    - A type, source IP address, and protocol/port range need to be specified when defining security group rules.
   
 * What's the difference between scalability, elasticity, and resiliency?
  
+    - Scalability is the ability to address the increase in workload by adding resources to 
+    the working environment.
+    - Elasticity is the ability to automatically scale services up or down to meet needs.
+    - Resiliency is the ability of a system to recover in the case of failure. Redunadant   
+    resources are leveraged to ensure that sytems remain online, even in the case of a 
+    failure.
+
 * Ways of paying for EC2?
 
+    - On-Demand, pay by the second
+    - Savings Plan, commit to a consistent amount of usage for a period of 1-3 years
+    - Reserved Instances, commit to a specific instance configuration for a term of 1-3 years
+    - Spot Instances, request unused EC2 instances
 
 ### RDS
 
 * What's an RDS?
 
+    - An RDS is a Relational Database Service. It provides a managed instance of a relational database management service.
+
 * Which vendors are supported?
 
+    - Amazon Aurora, PostgreSQL, MySQL, MariaDB, Oracle, MS SQL Server
 
 # UNIX/LINUX
 
@@ -351,5 +400,15 @@ Given the following table 'employees'...
 * Write a basic bash script 
     * ie: installing java/maven/git to an ec2
     * if you're feeling ambitious, a script that would delete a file if it exists
+
+    ```
+    #!/bin/bash
+    FILE=/file.txt
+    if test -f "$FILE"; then
+        rm "$FILE"
+    else
+        echo "File not found"
+    fi
+    ```
 
 
