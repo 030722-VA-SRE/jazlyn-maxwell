@@ -4,24 +4,80 @@
 
 * Explain what SQL is. What are some SQL databases?
 
+    - SQL stands for Structured Query Language. It is used to create, manage, 
+    and access relational databases.
+    - SQL implementations include PostgreSQL, MS SQL Server, MySQL, and OracleSQL.
+
 * How is data structured in a SQL database?
 
+    - Data is placed into tables. Every column in the table represents an attribute 
+    or field. Each row, called a record, represents an individual item of data.
+    
 * What is an ERD? How is it useful?
+
+    - ERD stands for Entity Relationship Diagram. An ERD is a visual representation
+    of the different tables in a database and models the relationships between 
+    different tables.
+    - ERD can be a useful tool when designing a database, and can be used as 
+    helpful documentation when accessing a database.
 
 * What are the different multiplicity relationships? How would you create these relations?
 
+    - Relationships in a RDBMS can be one-to-one, one-to-many/many-to-one, or many-to-many.
+    - A one-to-one relationship is implemented by refencing a primary key in another 
+    table. To ensure that the relationship remains one-to-one and one row references
+    exactly one other row, the foreign key should also be either a primary key or
+    have a unique constraint.
+    - A many-to-one relationship is a relationship in which many rows may reference
+    one row. A table must simply reference another table in order to implement this
+    type of relation. Note that the table with the foreign key represents the 'many'
+    side of this relation.
+    - A many-to-many relationship occurs when many rows may reference many other rows
+    in another table. In SQL, this is done by creating a separate junction table
+    which references both tables in the many-to-many relation.
+
 * What kind of relationship would exist between Students and Classes? Students and Textbooks?
+
+    - Students and Classes have a many-to-many relation. A Student may take many
+    Classes and a Class may have many Students.
+    - Students and Textbooks have a one-to-many relation. A Student may have many
+    Textbooks, but a Textbook only belongs to one Student.
 
 * Explain the concept of referential integrity
 
+    - Referential integrity means that every entry in a foreign key column has a matchning 
+    record in the associated table.
+    - We don't want orphaned records, or foreign keys that don't have a matching
+    primary key, in our database.
+
 * What is a cascade delete?
     
+    - With a cascade delete, if a record referenced by records in other tables 
+    is deleted, then all records referencing it will also be deleted.
+
 * List the integrity constraints
+
+    - Domain constraints define the valid set of values for an attribute. You
+    can also specify that a value should be unique or not null.
+    - The entity integrity constraint prevents the primary key of a table
+    from being null. We cannot use the primary key to identify a record if
+    the priomary key is null.
+    - Referential integrity constraints require foreign keys to be null or
+    match existing records in the referenced table.
+    - Key constraints identify the attribute(s) that will be used to uniquely
+    identify all records in the table.
     
 * Define the word "schema"
+
+    - A database schema is a collection of tables, views, triggers, and functions.
     
 * What is a candidate key? What about a surrogate key?
 
+    - A candiadate key is any attribute or set of attributes that are unique 
+    for all records in a table, qualifying them to be used as a primary key.
+    - Surrogate keys are primary keys used in a database to uniquely identify
+    a record, but is not related or derived from the data itself. A surrogate
+    key is artificially generated.
 
 ### Sublanguages & Queries
     
