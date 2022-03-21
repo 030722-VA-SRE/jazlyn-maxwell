@@ -141,8 +141,23 @@
 
 * What are the properties a transaction must follow?
  
+    - **Atomicity:** a transaction should either occur in its entirety or not at all.
+    - **Consistency:** a database should be in a valid (according to database constraints and 
+    business logic) state before and after every transaction.
+    - **Isolation:** a transaction should not interfere with another transaction. Concurrent
+    transactions should behave the same as sequential transactions.
+    - **Durability:** changes made during a transaction should be persisted to the database.
 
 * Explain the different isolation levels. What read phenomena do each prevent?
+
+    - Read uncommited allows data to be read from an uncommitted transaction. This allows all 
+    read phenomena to be possible.
+    - Read committed  only allows data to be read from committed transactions. This isolation 
+    level prevents the dirty read phenomena.
+    - Repeatable read only allows data to be seen that was committed before the transaction 
+    began. This isolation level prevents the nonrepeatable read phenomena from occuring.
+    - Serializable is the strictest level of isolation and forces transactions to occur 
+    sequentially. This prevents the phantom read phenomena from occuring.
 
 ### Practicals
 
