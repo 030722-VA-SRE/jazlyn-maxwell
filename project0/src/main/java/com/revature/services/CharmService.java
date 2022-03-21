@@ -14,7 +14,23 @@ public class CharmService {
 		cDao = new CharmPostgres();
 	}
 	
+	public int createCharm(Charm charm) {
+		return cDao.createCharm(charm);
+	};
+	
 	public List<Charm> getCharms() {
 		return cDao.getCharms();
 	}
+	
+	public Charm getCharmById(int id) {
+		return cDao.getCharmById(id);
+	};
+
+	public boolean updateCharm(Charm charm) {
+		return cDao.updateCharm(charm);
+	};
+	
+	public boolean deleteCharm(int id) {
+		return cDao.deleteCharm(id);
+	};
 }
