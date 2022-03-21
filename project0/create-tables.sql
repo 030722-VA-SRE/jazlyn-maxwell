@@ -52,3 +52,11 @@ insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_coun
 -- Display table contents
 select * from charms as c
 join users as u on c.user_id = u.user_id;
+
+select * from charms as c
+join users as u on c.user_id = u.user_id
+where charm_name like '%Heart%'
+and charm_desc like'%damage%'
+and true;
+
+
