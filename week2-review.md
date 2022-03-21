@@ -240,11 +240,9 @@ Given the following table 'employees'...
 * Write a query to find the salary of the lowest paid salesperson (HINT: use a join)
 
     ```
-    select salary from employees
+    select MIN(salary) from employees
     join department on employees.dept_id = department.dept_id
-    where name = 'Sales'
-    order by salary asc
-    limit 1;
+    where name = 'Sales';
     ```
 
 * Write a query to find the average salary of each department
@@ -396,6 +394,10 @@ Given the following table 'employees'...
 # UNIX/LINUX
 
 * What are the differences between a Thread and Process and a Service?
+
+    - A *thread* is a path of execution within a process.
+    - A *process* is an instance of a program in memory. Processes are scheduled in the CPU for execution.
+    - A *service*, also called a daemon, is a process that runs in the background and is not interactive.
 
 * Write a basic bash script 
     * ie: installing java/maven/git to an ec2
