@@ -280,10 +280,33 @@ Given the following table 'employees'...
 
 # JDBC
 1.	What is JDBC?
+
+    - Stands for the *Java Database Connectivity*. Establishes a conection between
+    a java application and a statbase. 
+
 2.	What are the core interfaces / classes in JDBC?
+
+    - The DriverManager class manages the JDBC driver and provides the get connection method.
+    - The Connection interface represents the connection to your database.
+    - The Statement and PreparedStatement interfaces represent a SQL statement.
+    - The ResultSet interface represents the result of a query.
+
 3.	What is a stored procedure and how would you call it in Java?
+
+    - A stored procedure is a set of database operations stored for reusability.
+    - A stored procedure can be prepared in Java by using the Connection.prepareCall() method 
+    to create a CallableStatement and executing it with the executeQuery() method.
+
 4.	What is the difference between Statement and PreparedStatement?
+
+    - A PreparedStatement has been preprocessed to prevent SQL injection. Methods can be used 
+    to set the fields of a PreparedStatement. A Statement is executed as-is and is vulnerable 
+    to SQL injection.
+
 5.	Steps to executing an SQL query using JDBC?
+
+    - First, establish a connection. Then, create a statement using a SQL query represented 
+    as a String. Then, execute the query using the execute(), executeQuery() or executeUpdate() methods. If required, process the ResultSet object. Finally, close the connection.
 
 # AWS
 
