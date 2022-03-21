@@ -82,18 +82,60 @@
 ### Sublanguages & Queries
     
 * What are the 5 sublanguages of SQL? List some commands for each
+
+    - **Data Definition Language (DDL)** is used to create, edit, and delete
+    data entities, such as databases, schemas, uasers, tables, and properties.
+    CREATE, ALTER, DROP, and TRUNCATE are all DDL commands.
+    - **Data Control Language (DCL)** is used to manage user permissions
+    within a database. GRANT and REVOKE are DCL commands.
+    - **Data Manipulation Language (DML)** is used to interact with records
+    within tables. INSERT, UPDATE, and DELETE are DML commands.
+    - **Data Query Language (DQL)** is used to retrieve information from tables.
+    SELECT is the main operation used to query data. WHERE, GROUP BY, HAVING, 
+    ORDER BY, and LIMIT are all DQL commands used to filter data.
+    - **Transaction Control Language (TCL)** is used to create and manage 
+    transactions. Transactions combine multiple operations into a unit of work.
+    BEGIN, SAVEPOINT, ROLLBACK, and COMMIT are TCL commands.
     
 * What is the difference between DELETE, DROP, and TRUNCATE commands?
     
+    - DELETE removes records from a TABLE, can use a WHERE clause to select
+    which records to remove.
+    - DROP deletes an entire table and all of its records.
+    - TRUNCATE removes all the records from a table (but not the table 
+    itself).
+
 * What are some SQL clauses you can use with SELECT statements?
    
+   - WHERE, GROUP BY, HAVING, ORDER BY, and LIMIT are all DQL commands that 
+   can be used with SELECT statements.
 
 * What is the difference between joins and set operators?
 
+    - JOINS combine rows from different tables based on a logical relationship,
+    typically a foreign key relationship.
+    - Set operators combine queries together. Set operations are used on 
+    queries on the same table. UNION, UNION ALL, INTERSECT, and EXCEPT are
+    all set operations.
+
 * What are the types of joins? Explain the differences.
  
+    - (INNER) JOIN returns all records that have *matching* values in both 
+    tables.
+    - LEFT (OUTER) JOIN returns all records in the *left* table and matching 
+    records in the right table.
+    - RIGHT (OUTER) JOIN returns all records in the *right* table and mathcing
+    records in the left table.
+    - FULL (OUTER) JOIN returns all records in *both* tables
+    - SELF JOIN joins a table to itself to combine related data on the same table.
 
 * Explain the difference between UNION, UNION ALL, and INTERSECT
+
+    - UNION combines the query sets and removes duplicate records
+    - UNION ALL combines the query sets, but does not remove duplicate records
+    - INTERSECT returns the common records from both data sets
+    - EXCEPT returns a dataset where the results from the second query are
+    removed from the first.
 
 ### Transactions
 
