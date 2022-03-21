@@ -24,7 +24,7 @@ public class CharmService {
 	}
 
 	public List<Charm> getCharmsByParam(Map<String, List<String>> queryParamMap) {
-		return cDao.getChamsByParam(queryParamMap);
+		return cDao.getCharmsByParam(queryParamMap);
 	};
 	
 	public Charm getCharmById(int id) {

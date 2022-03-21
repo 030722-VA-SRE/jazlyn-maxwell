@@ -73,7 +73,7 @@ public class CharmPostgres implements CharmDao {
 	}
 	
 	@Override
-	public List<Charm> getChamsByParam(Map<String, List<String>> queryParamMap) {
+	public List<Charm> getCharmsByParam(Map<String, List<String>> queryParamMap) {
 		String sql = "select * from charms as c\r\n"
 				+ "join users as u on c.user_id = u.user_id where ";
 		Map<Integer, String> statementParams = new HashMap<Integer, String>();
@@ -103,7 +103,7 @@ public class CharmPostgres implements CharmDao {
 				sql += "charm_country like ? and ";
 				break;
 			case "sellerId":
-				sql += "user_id = ? and ";
+				sql += "c.user_id = ? and ";
 				break;
 			default:
 				break;
