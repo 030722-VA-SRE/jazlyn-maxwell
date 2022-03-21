@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.revature.models.Charm;
 import com.revature.utils.ConnectionUtil;
@@ -31,7 +32,6 @@ public class CharmPostgres implements CharmDao {
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				generated_pk = rs.getInt(1);
-				System.out.println(generated_pk);
 			}
 		}
 		catch (SQLException ex) {
@@ -69,6 +69,11 @@ public class CharmPostgres implements CharmDao {
 			ex.printStackTrace();
 		}
 		return charms;
+	}
+	
+	@Override
+	public List<Charm> getChamsByParam(Map<String, List<String>> queryParamMap) {
+		String sql = "";
 	}
 
 	@Override

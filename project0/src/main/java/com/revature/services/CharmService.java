@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.Map;
 
 import com.revature.daos.CharmDao;
 import com.revature.daos.CharmPostgres;
@@ -21,6 +22,10 @@ public class CharmService {
 	public List<Charm> getCharms() {
 		return cDao.getCharms();
 	}
+
+	public List<Charm> getCharmsByParam(Map<String, List<String>> queryParamMap) {
+		return cDao.getChamsByParam(queryParamMap);
+	};
 	
 	public Charm getCharmById(int id) {
 		return cDao.getCharmById(id);
@@ -32,5 +37,5 @@ public class CharmService {
 	
 	public boolean deleteCharm(int id) {
 		return cDao.deleteCharm(id);
-	};
+	}
 }

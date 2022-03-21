@@ -23,10 +23,10 @@ public class Driver {
 			path("charm", () -> {
 				get(CharmController::getCharms);
 				post(CharmController::createCharm);
-				put(CharmController::updateCharm);
 				
 				path("{id}", () -> {
 					get(CharmController::getCharmById);
+					put(CharmController::updateCharm);
 					delete(CharmController::deleteCharm);
 				});
 			});

@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
-import org.eclipse.jetty.http.HttpStatus;
+import java.util.List;
+import java.util.Map;
 
 import com.revature.models.Charm;
 import com.revature.services.CharmService;
@@ -24,8 +25,14 @@ public class CharmController {
 	}
 	
 	public static void getCharms(Context ctx) {
-		System.out.println(ctx.queryParamMap().getClass());
-		ctx.json(cServ.getCharms());
+		Map<String,List<String>> queryParamMap = ctx.queryParamMap();
+		
+		if (queryParamMap.isEmpty()) {
+			ctx.json(cServ.getCharms());
+		}
+		else {
+			ctx.json(cServ.getCharmsByParam(queryParamMap));
+		}
 	}
 	
 	public static void getCharmById(Context ctx) {
@@ -34,7 +41,9 @@ public class CharmController {
 	}
 	
 	public static void updateCharm(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
 		Charm charm = ctx.bodyAsClass(Charm.class);
+		charm.setId(id);
 		
 		if (cServ.updateCharm(charm)) {
 			ctx.status(201);
