@@ -177,20 +177,56 @@ Given the following table 'employees'...
 
 * Write a query to find all data in the table
 
+    ```select * from employees;```
+
 * Write a query to find employees with a salary over 75
+
+    ```
+    select * from employees 
+    where salary > 75;
+    ```
 
 * Write a query to find employees whose first name contains an 'e' or whose last name begins with 'S'\
 
+    ```
+    select * from employees 
+    where firstName like '%e%' OR lastName like 'S%';
+    ```
+
 * Write a query to find the first name of all employees who do not work in accounting
+
+    ```
+    select firstName from employees 
+    where dept != 'Accounting';
+    ```
 
 * Write a query to find the average salary of all employees whose last names begin with 'M'
 
+    ```
+    select AVG(salary) from employees 
+    where lastName like 'M%';
+    ```
+
 * Write a query to find the highest paid salesperson
+
+    ```
+    select * from employees 
+    where dept = 'Sales' 
+    order by salary 
+    limit 1;
+    ```
 
 * Write a query to combine the resultsets of any two previous queries
 
+    ```
+    (select * from employees where salary > 75) 
+    union 
+    (select * from employees where firstName like '%e%' OR lastName like 'S%');
+    ```
+
 * Remove all members of accounting from the database
 
+    ```delete from employees where dept = 'Accounting';```
 
 * Given removing the dept column from the employees table and creating a table 'department' and linking the two via a foreign key relationship
 
@@ -203,13 +239,44 @@ Given the following table 'employees'...
 
 * Write a query to find the salary of the lowest paid salesperson (HINT: use a join)
 
+    ```
+    select salary from employees
+    join department on employees.dept_id = department.dept_id
+    where name = 'Sales'
+    order by salary asc
+    limit 1;
+    ```
+
 * Write a query to find the average salary of each department
+
+    ```
+    select name, AVG(salary) from employees
+    join department on employees.dept_id = department.dept_id
+    group by dept_id;
+    ```
 
 * Write a query to find all possible combinations of employees and departments. How many records do you expect?
 
+    ```
+    select * from employees
+    cross join department;
+    ```
+    - I expect to see 36 records
+
 * Change the name of department 4 to 'Quality Assurance'
 
+    ```
+    update department 
+    set name = 'Quality Assurance' 
+    where dept_id = 4;
+    ```
+
 * Remove both tables
+
+    ```
+    drop table employees;
+    drop table department;
+    ```
 
 # JDBC
 1.	What is JDBC?
