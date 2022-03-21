@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,7 +74,79 @@ public class CharmPostgres implements CharmDao {
 	
 	@Override
 	public List<Charm> getChamsByParam(Map<String, List<String>> queryParamMap) {
-		String sql = "";
+		String sql = "select * from charms as c\r\n"
+				+ "join users as u on c.user_id = u.user_id where ";
+		Map<Integer, String> statementParams = new HashMap<Integer, String>();
+		int paramKey = 1;
+		
+		for (Map.Entry<String, List<String>> queryParam : queryParamMap.entrySet()) {
+			String key = queryParam.getKey();
+			String value = queryParam.getValue().get(0);
+			
+			switch (key) {
+			case "id":
+				sql += "charm_id = ? and ";
+				break;
+			case "name":
+				sql += "charm_name like ? and ";
+				break;
+			case "description":
+				sql += "charm_desc like ? and ";
+				break;
+			case "price":
+				sql += "charm_price = ? and ";
+				break;
+			case "region":
+				sql += "charm_region like ? and ";
+				break;
+			case "country":
+				sql += "charm_country like ? and ";
+				break;
+			case "sellerId":
+				sql += "user_id = ? and ";
+				break;
+			default:
+				break;
+			}
+			statementParams.put(paramKey, value);
+			paramKey++;
+		}
+		
+		sql += "true;";
+		
+		List<Charm> charms = new ArrayList<>();
+		
+		try (Connection con = ConnectionUtil.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			for (Map.Entry<Integer, String> statementParam : statementParams.entrySet()) {
+				if (isInteger(statementParam.getValue())) {
+					ps.setInt(statementParam.getKey(), Integer.parseInt(statementParam.getValue()));
+				}
+				else {
+					ps.setString(statementParam.getKey(), "%" + statementParam.getValue() + "%");
+				}
+			}
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Charm charm = new Charm(
+						rs.getInt("charm_id"),
+						rs.getString("charm_name"),
+						rs.getString("charm_desc"),
+						rs.getInt("charm_price"),
+						rs.getString("charm_region"),
+						rs.getString("charm_country"),
+						rs.getInt("user_id"));
+				
+				charms.add(charm);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return charms;
 	}
 
 	@Override
@@ -121,10 +194,9 @@ public class CharmPostgres implements CharmDao {
 			ps.setInt(6, charm.getSellerId());
 			ps.setInt(7, charm.getId());
 			int row = ps.executeUpdate();
-			if (row == 0) {
-				return false;
+			if (row > 0) {
+				return true;
 			}
-			return true;
 		}
 		catch (SQLException ex) { 
 			ex.printStackTrace();
@@ -149,6 +221,19 @@ public class CharmPostgres implements CharmDao {
 			ex.printStackTrace();
 		}
 		return false;
+	}
+	
+	// Helper function
+	public static boolean isInteger(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        Integer.parseInt(strNum);
+	    } catch (NumberFormatException ex) {
+	        return false;
+	    }
+	    return true;
 	}
 	
 }
