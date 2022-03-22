@@ -10,10 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.models.Charm;
 import com.revature.utils.ConnectionUtil;
 
 public class CharmPostgres implements CharmDao {
+	
+	private static Logger log = LogManager.getLogger(CharmDao.class);
 
 	@Override
 	public int createCharm(Charm charm) {
@@ -37,6 +42,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		
 		return generated_pk;
@@ -68,6 +74,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		return charms;
 	}
@@ -145,6 +152,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		return charms;
 	}
@@ -174,6 +182,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		return charm;
 	}
@@ -200,6 +209,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) { 
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		return false;
 	}
@@ -219,6 +229,7 @@ public class CharmPostgres implements CharmDao {
 		}
 		catch (SQLException ex) { 
 			ex.printStackTrace();
+			log.error(ex.getMessage());
 		}
 		return false;
 	}
