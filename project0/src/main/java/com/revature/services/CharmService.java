@@ -37,29 +37,29 @@ public class CharmService {
 	};
 
 	public boolean updateCharm(Charm charm) {
-		Charm charm_update = cDao.getCharmById(charm.getId());
+		Charm charmUpdate = cDao.getCharmById(charm.getId());
 		
 		// Validate input
-		if (charm.getName() != null && !charm.getName().equals(charm_update.getName())) {
-			charm_update.setName(charm.getName());
+		if (charm.getName() != null && !charm.getName().equals(charmUpdate.getName())) {
+			charmUpdate.setName(charm.getName());
 		}
-		if (charm.getDescription() != null && !charm.getDescription().equals(charm_update.getDescription())) {
-			charm_update.setDescription(charm.getDescription());
+		if (charm.getDescription() != null && !charm.getDescription().equals(charmUpdate.getDescription())) {
+			charmUpdate.setDescription(charm.getDescription());
 		}
-		if (charm.getPrice() != charm_update.getPrice()) {
-			charm_update.setPrice(charm.getPrice());
+		if (charm.getPrice() != charmUpdate.getPrice()) {
+			charmUpdate.setPrice(charm.getPrice());
 		}
-		if (charm.getRegion() != null && !charm.getRegion().equals(charm_update.getRegion())) {
-			charm_update.setRegion(charm.getRegion());
+		if (charm.getRegion() != null && !charm.getRegion().equals(charmUpdate.getRegion())) {
+			charmUpdate.setRegion(charm.getRegion());
 		}
-		if (charm.getCountry() != null && !charm.getCountry().equals(charm_update.getCountry())) {
-			charm_update.setCountry(charm.getCountry());
+		if (charm.getCountry() != null && !charm.getCountry().equals(charmUpdate.getCountry())) {
+			charmUpdate.setCountry(charm.getCountry());
 		}
-		if (charm.getSeller() != null && charm.getSeller().getId() != charm_update.getSeller().getId()) {
-			charm_update.getSeller().setId(charm.getSeller().getId());
+		if (charm.getSeller() != null && charm.getSeller().getId() != charmUpdate.getSeller().getId()) {
+			charmUpdate.getSeller().setId(charm.getSeller().getId());
 		}
 		
-		return cDao.updateCharm(charm_update);
+		return cDao.updateCharm(charmUpdate);
 	};
 	
 	public boolean deleteCharm(int id) {

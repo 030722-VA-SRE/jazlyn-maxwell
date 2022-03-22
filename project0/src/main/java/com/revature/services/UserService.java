@@ -58,11 +58,38 @@ public class UserService {
 	}
 	
 	public boolean updateUser(User user) {
-		return false;
+		User userUpdate = uDao.getUserById(user.getId());
+		
+		// Validate input (admin only)
+		if (user.getName() != null && !user.getName().equals(userUpdate.getName())) {
+			userUpdate.setName(user.getName());
+		}
+		if (user.getEmail() != null && !user.getEmail().equals(userUpdate.getEmail())) {
+			userUpdate.setEmail(user.getEmail());
+		}
+		if (user.getPassword() != null && !user.getPassword().equals(userUpdate.getPassword())) {
+			userUpdate.setPassword(user.getPassword());
+		}
+		
+		return uDao.updateUser(userUpdate);
 	}
 	
-	public boolean deleteUser(User user) {
-		return false;
+	public boolean updateUserAdmin(User user) {
+		User userUpdate = uDao.getUserById(user.getId());
+		
+		// Validate input (admin only)
+		if (user.getBalance() != userUpdate.getBalance()) {
+			userUpdate.setBalance(user.getBalance());
+		}
+		if (user.getRole() != null && !user.getRole().equals(userUpdate.getRole())) {
+			userUpdate.setRole(user.getRole());
+		}
+		
+		return uDao.updateUser(userUpdate);
+	}
+	
+	public boolean deleteUser(int id) {
+		return uDao.deleteUser(id);
 	}
 	
 }
