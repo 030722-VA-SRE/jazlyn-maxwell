@@ -15,6 +15,11 @@ public class CharmService {
 		cDao = new CharmPostgres();
 	}
 	
+	// for testing
+	public CharmService(CharmDao cDao) {
+		this.cDao = cDao;
+	}
+	
 	public int createCharm(Charm charm) {
 		return cDao.createCharm(charm);
 	};
