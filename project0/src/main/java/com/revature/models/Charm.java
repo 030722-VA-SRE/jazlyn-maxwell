@@ -2,6 +2,8 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import com.revature.services.UserService;
+
 public class Charm {
 
 	private int id;
@@ -10,31 +12,38 @@ public class Charm {
 	private int price;
 	private String region;
 	private String country;
-	private int sellerId;
+	private User seller;
 
 	public Charm() {
 		super();
 	}
 	
-	public Charm(String name, String description, int price, String region, String country, int sellerId) {
-		super();
+	public Charm(int id, int price) {
+		this();
+		this.id = id;
+		this.price = price;
+	}
+	
+	public Charm(String name, String description, int price, String region, String country, User seller) {
+		this();
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.region = region;
 		this.country = country;
-		this.sellerId = sellerId;
+		this.seller = seller;
 	}
 	
 	public Charm(int id, String name, String description, int price, String region, String country, int sellerId) {
-		super();
+		this();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.region = region;
 		this.country = country;
-		this.sellerId = sellerId;
+		UserService uServ = new UserService();
+		this.seller = uServ.getUserById(sellerId);
 	}
 
 	public int getId() {
@@ -73,16 +82,16 @@ public class Charm {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public int getSellerId() {
-		return sellerId;
+	public User getSeller() {
+		return seller;
 	}
-	public void setSellerId(int sellerId) {
-		this.sellerId = sellerId;
+	public void setSeller(User seller) {
+		this.seller = seller;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(country, description, id, name, price, region, sellerId);
+		return Objects.hash(country, description, id, name, price, region, seller);
 	}
 
 	@Override
@@ -96,13 +105,13 @@ public class Charm {
 		Charm other = (Charm) obj;
 		return Objects.equals(country, other.country) && Objects.equals(description, other.description)
 				&& id == other.id && Objects.equals(name, other.name) && price == other.price
-				&& Objects.equals(region, other.region) && sellerId == other.sellerId;
+				&& Objects.equals(region, other.region) && seller == other.seller;
 	}
 
 	@Override
 	public String toString() {
 		return "Charm [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", region="
-				+ region + ", country=" + country + ", sellerId=" + sellerId + "]";
+				+ region + ", country=" + country + ", seller=" + seller + "]";
 	}
 
 

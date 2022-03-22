@@ -12,7 +12,7 @@ public class CharmService {
 	private CharmDao cDao;
 	
 	public CharmService() {
-		cDao = new CharmPostgres();
+		cDao = CharmPostgres.getInstance();
 	}
 	
 	// for testing
@@ -37,7 +37,29 @@ public class CharmService {
 	};
 
 	public boolean updateCharm(Charm charm) {
-		return cDao.updateCharm(charm);
+		Charm charmUpdate = cDao.getCharmById(charm.getId());
+		
+		// Validate input
+		if (charm.getName() != null && !charm.getName().equals(charmUpdate.getName())) {
+			charmUpdate.setName(charm.getName());
+		}
+		if (charm.getDescription() != null && !charm.getDescription().equals(charmUpdate.getDescription())) {
+			charmUpdate.setDescription(charm.getDescription());
+		}
+		if (charm.getPrice() != charmUpdate.getPrice()) {
+			charmUpdate.setPrice(charm.getPrice());
+		}
+		if (charm.getRegion() != null && !charm.getRegion().equals(charmUpdate.getRegion())) {
+			charmUpdate.setRegion(charm.getRegion());
+		}
+		if (charm.getCountry() != null && !charm.getCountry().equals(charmUpdate.getCountry())) {
+			charmUpdate.setCountry(charm.getCountry());
+		}
+		if (charm.getSeller() != null && charm.getSeller().getId() != charmUpdate.getSeller().getId()) {
+			charmUpdate.getSeller().setId(charm.getSeller().getId());
+		}
+		
+		return cDao.updateCharm(charmUpdate);
 	};
 	
 	public boolean deleteCharm(int id) {

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.revature.controllers.CharmController;
+import com.revature.controllers.UserController;
 
 import io.javalin.Javalin;
 
@@ -26,7 +27,7 @@ public class Driver {
 		log.info("Started Javalin app");
 		
 		app.routes(() -> {
-			path("charm", () -> {
+			path("charms", () -> {
 				get(CharmController::getCharms);
 				post(CharmController::createCharm);
 				
@@ -34,6 +35,16 @@ public class Driver {
 					get(CharmController::getCharmById);
 					put(CharmController::updateCharm);
 					delete(CharmController::deleteCharm);
+				});
+			});
+			path("users", () -> {
+				get(UserController::getUsers);
+				post(UserController::createUser);
+				
+				path("{id}", () -> {
+					get(UserController::getUserById);
+					put(UserController::updateUser);
+					delete(UserController::deleteUser);
 				});
 			});
 		});

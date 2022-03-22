@@ -19,6 +19,15 @@ import com.revature.utils.ConnectionUtil;
 public class CharmPostgres implements CharmDao {
 	
 	private static Logger log = LogManager.getLogger(CharmDao.class);
+	private static CharmDao cDao;
+	
+	private CharmPostgres() {}
+	public static CharmDao getInstance() {
+		if (cDao == null) {
+			cDao = new CharmPostgres();
+		}
+		return cDao;
+	}
 
 	@Override
 	public int createCharm(Charm charm) {
@@ -32,7 +41,7 @@ public class CharmPostgres implements CharmDao {
 			ps.setInt(3, charm.getPrice());
 			ps.setString(4, charm.getRegion());
 			ps.setString(5, charm.getCountry());
-			ps.setInt(6, charm.getSellerId());
+			ps.setInt(6, charm.getSeller().getId());
 			ps.execute();
 			
 			ResultSet rs = ps.getGeneratedKeys();
@@ -44,14 +53,12 @@ public class CharmPostgres implements CharmDao {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
 		}
-		
 		return generated_pk;
 	}
 
 	@Override
 	public List<Charm> getCharms() {
-		String sql = "select * from charms as c\r\n"
-				+ "join users as u on c.user_id = u.user_id\r\n"
+		String sql = "select * from charms "
 				+ "order by charm_id;";
 		List<Charm> charms = new ArrayList<>();
 		
@@ -81,8 +88,7 @@ public class CharmPostgres implements CharmDao {
 	
 	@Override
 	public List<Charm> getCharmsByParam(Map<String, List<String>> queryParamMap) {
-		String sql = "select * from charms as c\r\n"
-				+ "join users as u on c.user_id = u.user_id where ";
+		String sql = "select * from charms where ";
 		Map<Integer, String> statementParams = new HashMap<Integer, String>();
 		int paramKey = 1;
 		
@@ -110,7 +116,7 @@ public class CharmPostgres implements CharmDao {
 				sql += "charm_country like ? and ";
 				break;
 			case "sellerId":
-				sql += "c.user_id = ? and ";
+				sql += "user_id = ? and ";
 				break;
 			default:
 				break;
@@ -159,8 +165,7 @@ public class CharmPostgres implements CharmDao {
 
 	@Override
 	public Charm getCharmById(int id) {
-		String sql = "select * from charms as c\r\n"
-				+ "join users as u on c.user_id = u.user_id \r\n"
+		String sql = "select * from charms "
 				+ "where charm_id = ?;";
 		Charm charm = null;
 		
@@ -189,8 +194,8 @@ public class CharmPostgres implements CharmDao {
 
 	@Override
 	public boolean updateCharm(Charm charm) {
-		String sql = "update charms set\r\n"
-				+ "charm_name = ?, charm_desc = ?, charm_price = ?, charm_region = ?, charm_country = ?, user_id = ?\r\n"
+		String sql = "update charms set "
+				+ "charm_name = ?, charm_desc = ?, charm_price = ?, charm_region = ?, charm_country = ?, user_id = ? "
 				+ "where charm_id = ?";
 		
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -200,7 +205,7 @@ public class CharmPostgres implements CharmDao {
 			ps.setInt(3, charm.getPrice());
 			ps.setString(4, charm.getRegion());
 			ps.setString(5, charm.getCountry());
-			ps.setInt(6, charm.getSellerId());
+			ps.setInt(6, charm.getSeller().getId());
 			ps.setInt(7, charm.getId());
 			int row = ps.executeUpdate();
 			if (row > 0) {
