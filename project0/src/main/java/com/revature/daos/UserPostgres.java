@@ -17,7 +17,16 @@ import com.revature.utils.ConnectionUtil;
 
 public class UserPostgres implements UserDao {
 
-	private static Logger log = LogManager.getLogger(CharmDao.class);
+	private static Logger log = LogManager.getLogger(UserDao.class);
+	private static UserDao uDao;
+	
+	private UserPostgres() {}
+	public static UserDao getInstance() {
+		if (uDao == null) {
+			uDao = new UserPostgres();
+		}
+		return uDao;
+	}
 	
 	@Override
 	public int createUser(User user) {
@@ -60,7 +69,7 @@ public class UserPostgres implements UserDao {
 						rs.getInt("user_id"),
 						rs.getString("user_name"),
 						rs.getString("user_email"),
-						rs.getNString("user_email"),
+						rs.getString("user_email"),
 						rs.getInt("user_balance"),
 						Role.valueOf(rs.getString("user_role")));
 				users.add(user);
@@ -90,7 +99,7 @@ public class UserPostgres implements UserDao {
 						rs.getInt("user_id"),
 						rs.getString("user_name"),
 						rs.getString("user_email"),
-						rs.getNString("user_email"),
+						rs.getString("user_email"),
 						rs.getInt("user_balance"),
 						Role.valueOf(rs.getString("user_role")));
 			}
@@ -119,7 +128,7 @@ public class UserPostgres implements UserDao {
 						rs.getInt("user_id"),
 						rs.getString("user_name"),
 						rs.getString("user_email"),
-						rs.getNString("user_email"),
+						rs.getString("user_email"),
 						rs.getInt("user_balance"),
 						Role.valueOf(rs.getString("user_role")));
 			}

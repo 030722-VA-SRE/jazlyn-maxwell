@@ -1,5 +1,68 @@
 package com.revature.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.revature.daos.UserDao;
+import com.revature.daos.UserPostgres;
+import com.revature.models.Role;
+import com.revature.models.User;
+
 public class UserService {
 
+	private UserDao uDao;
+	
+	public UserService() {
+		uDao = UserPostgres.getInstance();
+	}
+	
+	// for testing
+	public UserService(UserDao uDao) {
+		this.uDao = uDao;
+	}
+	
+	public int createUser(User user) {
+		// set default role
+		user.setRole(Role.USER);
+		
+		return uDao.createUser(user);
+	}
+	
+	public List<User> getUsers() {
+		return uDao.getUsers()
+				.stream()
+				.map(u -> {
+					u.setPassword(null);
+					u.setBalance(0);
+					return u;
+					})
+				.collect(Collectors.toList());
+	}
+	
+	public User getUserById(int id) {
+		User user = uDao.getUserById(id);
+		if (user != null) {
+			user.setPassword(null);
+			user.setBalance(0);
+		}
+		return user;
+	}
+	
+	public User getUserByEmail(String email) {
+		User user = uDao.getUserByEmail(email);
+		if (user != null) {
+			user.setPassword(null);
+			user.setBalance(0);
+		}
+		return user;
+	}
+	
+	public boolean updateUser(User user) {
+		return false;
+	}
+	
+	public boolean deleteUser(User user) {
+		return false;
+	}
+	
 }

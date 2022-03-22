@@ -13,11 +13,11 @@ import static com.revature.daos.CharmPostgres.isInteger;
 @ExtendWith(MockitoExtension.class)
 public class CharmPostgresTest {
 	
-	static CharmPostgres cDao;
+	static CharmDao cDao;
 	
 	@BeforeAll
 	public static void init() {
-		cDao = new CharmPostgres();
+		cDao = CharmPostgres.getInstance();
 	}
 	
 	@Test
