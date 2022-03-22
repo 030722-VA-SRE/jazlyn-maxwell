@@ -44,7 +44,6 @@ public class CharmPostgres implements CharmDao {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
 		}
-		
 		return generated_pk;
 	}
 
@@ -159,8 +158,8 @@ public class CharmPostgres implements CharmDao {
 
 	@Override
 	public Charm getCharmById(int id) {
-		String sql = "select * from charms as c\r\n"
-				+ "join users as u on c.user_id = u.user_id \r\n"
+		String sql = "select * from charms as c "
+				+ "join users as u on c.user_id = u.user_id "
 				+ "where charm_id = ?;";
 		Charm charm = null;
 		
@@ -189,8 +188,8 @@ public class CharmPostgres implements CharmDao {
 
 	@Override
 	public boolean updateCharm(Charm charm) {
-		String sql = "update charms set\r\n"
-				+ "charm_name = ?, charm_desc = ?, charm_price = ?, charm_region = ?, charm_country = ?, user_id = ?\r\n"
+		String sql = "update charms set "
+				+ "charm_name = ?, charm_desc = ?, charm_price = ?, charm_region = ?, charm_country = ?, user_id = ? "
 				+ "where charm_id = ?";
 		
 		try (Connection con = ConnectionUtil.getConnection()) {

@@ -6,9 +6,12 @@ drop table if exists users;
 -- Create new database tables
 create table users(
 	user_id serial primary key,
-	user_name varchar(30) unique not null,
-	user_pass varchar(30) not null,
-	user_balance integer not null
+	user_name varchar(50) not null,
+	user_email varchar(50) unique not null,
+	user_pass varchar(50) not null,
+	user_balance integer not null,
+	user_role varchar(50) not null 
+	check (user_role in ('USER', 'SELLER', 'ADMIN'))
 );
 
 create table charms(
@@ -22,12 +25,14 @@ create table charms(
 );
 
 -- Insert values into tables
-insert into users(user_name, user_pass, user_balance) values 
-	('Salubra', '12345678', 0),
-	('Sly', '12345678', 0),
-	('Leg Eater', '12345678', 0),
-	('Iselda', '12345678', 0),
-	('Candelaria', '12345678', 0);
+insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
+	('Salubra', 'charm.lover@hallow.nest', '12345678', 500, 'ADMIN'),
+	('Sly', 'great.nailsage@hallow.nest', '12345678', 250, 'SELLER'),
+	('Leg Eater', 'leg.eater@hallow.nest', '12345678', 100, 'SELLER'),
+	('Iselda', 'mrs.cartographer@hallow.nest', '12345678', 300, 'SELLER'),
+	('Candelaria', 'candelaria.ladrona@miracle.com', '12345678', 2500, 'ADMIN'),
+	('Hornet', 'princess.knight@hallow.nest', '12345678', 850, 'USER'),
+	('Penitent One', 'mea.culpa@miracle.com', '12345678', 500, 'USER');
 	
 insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_country, user_id) values
 	('Lifeblood Heart', 'When resting, the bearer will gain a coating of lifeblood that protects from a modest amount of damage.', 250, 'Forgotten Crossroads', 'Hallownest', 1),
@@ -49,14 +54,15 @@ insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_coun
 	('Calcified Eye of Erudition', 'Eyeball belonging to Alavaroz the scribe, who glimpsed the truth hidden to so many other eyes. Its stony scrutiny reveals the vital essence of enemies. ', 1200, 'Graveyard of the Peaks', 'Cvstodia', 5),
 	('Wicker Knot', 'Bead braided in a spiral motion, covered with a light coat of varnish that has protected it from the wear and tear of the years. A mother''s hands worked these strands and blessed them. Their influence provides protection from toxic damage.', 4000, 'The Sleeping Canvases', 'Cvstodia', 5);
 
+
+-- Insert Test Users
+insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
+	('Admin', 'admin@test.com', '12345678', 1000, 'ADMIN'),
+	('Seller', 'seller@test.com', '12345678', 1000, 'SELLER'),
+	('User', 'user@test.com', '12345678', 1000, 'USER');
+
 -- Display table contents
 select * from charms as c
 join users as u on c.user_id = u.user_id;
-
-select * from charms as c
-join users as u on c.user_id = u.user_id
-where charm_name like '%Heart%'
-and charm_desc like'%damage%'
-and true;
 
 

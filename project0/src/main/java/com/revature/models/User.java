@@ -1,23 +1,31 @@
 package com.revature.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
-	private String username;
+	private String name;
+	private String email;
 	private String password;
 	private int balance;
+	private Role role;
 	
 	public User() {
 		super();
 	}
-	
-	public User(int id, String username, String password, int balance) {
+
+	public User(int id, String name, String email, String password, int balance, Role role) {
 		super();
 		this.id = id;
-		this.username = username;
+		this.name = name;
+		this.email = email;
 		this.password = password;
 		this.balance = balance;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -27,13 +35,21 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public String getUsername() {
-		return username;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -52,9 +68,17 @@ public class User {
 		this.balance = balance;
 	}
 	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(balance, id, password, username);
+		return Objects.hash(balance, email, id, name, password, role);
 	}
 
 	@Override
@@ -66,13 +90,9 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return balance == other.balance && id == other.id && Objects.equals(password, other.password)
-				&& Objects.equals(username, other.username);
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", balance=" + balance + "]";
+		return balance == other.balance && Objects.equals(email, other.email) && id == other.id
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role);
 	}
 	
 }
