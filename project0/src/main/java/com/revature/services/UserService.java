@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.revature.daos.UserDao;
 import com.revature.daos.UserPostgres;
-import com.revature.models.Role;
 import com.revature.models.User;
 
 public class UserService {
@@ -22,9 +21,6 @@ public class UserService {
 	}
 	
 	public int createUser(User user) {
-		// set default role
-		user.setRole(Role.USER);
-		
 		return uDao.createUser(user);
 	}
 	
@@ -60,7 +56,6 @@ public class UserService {
 	public boolean updateUser(User user) {
 		User userUpdate = uDao.getUserById(user.getId());
 		
-		// Validate input (admin only)
 		if (user.getName() != null && !user.getName().equals(userUpdate.getName())) {
 			userUpdate.setName(user.getName());
 		}
@@ -70,19 +65,8 @@ public class UserService {
 		if (user.getPassword() != null && !user.getPassword().equals(userUpdate.getPassword())) {
 			userUpdate.setPassword(user.getPassword());
 		}
-		
-		return uDao.updateUser(userUpdate);
-	}
-	
-	public boolean updateUserAdmin(User user) {
-		User userUpdate = uDao.getUserById(user.getId());
-		
-		// Validate input (admin only)
 		if (user.getBalance() != userUpdate.getBalance()) {
 			userUpdate.setBalance(user.getBalance());
-		}
-		if (user.getRole() != null && !user.getRole().equals(userUpdate.getRole())) {
-			userUpdate.setRole(user.getRole());
 		}
 		
 		return uDao.updateUser(userUpdate);

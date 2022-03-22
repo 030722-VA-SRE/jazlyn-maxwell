@@ -9,7 +9,6 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.revature.controllers.AuthController;
 import com.revature.controllers.CharmController;
 import com.revature.controllers.UserController;
 
@@ -21,17 +20,11 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		Javalin app = Javalin.create((config) -> {
-			config.enableCorsForAllOrigins();
 			config.defaultContentType = "application/json";
 		});
 		
 		app.start(8080);
 		log.info("Started Javalin app");
-		
-		app.before(ctx -> {
-			ctx.header("Access-Control-Allow-Headers", "Authorization");
-			ctx.header("Access-Control-Expose-Headers", "Authorization");
-		});
 		
 		app.routes(() -> {
 			path("charms", () -> {
@@ -52,13 +45,6 @@ public class Driver {
 					get(UserController::getUserById);
 					put(UserController::updateUser);
 					delete(UserController::deleteUser);
-					
-					path("admin", () -> {
-						put(UserController::updateUserAdmin);
-					});
-				});
-				path("login", () -> {
-					post(AuthController::login);
 				});
 			});
 		});

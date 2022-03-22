@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.utils.ConnectionUtil;
 
@@ -30,8 +29,8 @@ public class UserPostgres implements UserDao {
 	
 	@Override
 	public int createUser(User user) {
-		String sql = "insert into users(user_name, user_email, user_pass, user_balance, user_role) "
-				+ "values (?, ?, ?, ?, ?);";
+		String sql = "insert into users(user_name, user_email, user_pass, user_balance) "
+				+ "values (?, ?, ?, ?);";
 		int generated_pk = -1;
 		
 		try(Connection con = ConnectionUtil.getConnection()) {
@@ -40,7 +39,6 @@ public class UserPostgres implements UserDao {
 			ps.setString(2,  user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setInt(4, user.getBalance());
-			ps.setString(5, user.getRole().toString());
 			ps.execute();
 			
 			ResultSet rs = ps.getGeneratedKeys();
@@ -69,9 +67,8 @@ public class UserPostgres implements UserDao {
 						rs.getInt("user_id"),
 						rs.getString("user_name"),
 						rs.getString("user_email"),
-						rs.getString("user_email"),
-						rs.getInt("user_balance"),
-						Role.valueOf(rs.getString("user_role")));
+						rs.getString("user_pass"),
+						rs.getInt("user_balance"));
 				users.add(user);
 			}
 		}
@@ -99,9 +96,8 @@ public class UserPostgres implements UserDao {
 						rs.getInt("user_id"),
 						rs.getString("user_name"),
 						rs.getString("user_email"),
-						rs.getString("user_email"),
-						rs.getInt("user_balance"),
-						Role.valueOf(rs.getString("user_role")));
+						rs.getString("user_pass"),
+						rs.getInt("user_balance"));
 			}
 		}
 		catch (SQLException ex) {
@@ -129,8 +125,7 @@ public class UserPostgres implements UserDao {
 						rs.getString("user_name"),
 						rs.getString("user_email"),
 						rs.getString("user_email"),
-						rs.getInt("user_balance"),
-						Role.valueOf(rs.getString("user_role")));
+						rs.getInt("user_balance"));
 			}
 		}
 		catch (SQLException ex) {
@@ -142,7 +137,7 @@ public class UserPostgres implements UserDao {
 
 	@Override
 	public boolean updateUser(User user) {
-		String sql = "update users set user_name = ?, user_email = ?, user_password = ?, user_balance = ?, user_role = ? "
+		String sql = "update users set user_name = ?, user_email = ?, user_pass = ?, user_balance = ? "
 				+ "where user_id = ?;";
 		
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -151,8 +146,7 @@ public class UserPostgres implements UserDao {
 			ps.setString(2,  user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setInt(4, user.getBalance());
-			ps.setString(5, user.getRole().toString());
-			ps.setInt(5, user.getId());
+			ps.setInt(6, user.getId());
 			int row = ps.executeUpdate();
 			if (row > 0) {
 				return true;

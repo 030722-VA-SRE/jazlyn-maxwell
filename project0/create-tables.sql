@@ -57,12 +57,13 @@ insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_coun
 
 -- Insert Test Users
 insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
-	('Admin', 'admin@test.com', '12345678', 1000, 'ADMIN'),
-	('Seller', 'seller@test.com', '12345678', 1000, 'SELLER'),
-	('User', 'user@test.com', '12345678', 1000, 'USER');
+	('Admin', 'admin@test.com', 'admin', 1000, 'ADMIN'),
+	('Seller', 'seller@test.com', 'seller', 1000, 'SELLER'),
+	('User', 'user@test.com', 'user', 1000, 'USER');
 
 -- Display table contents
 select * from charms as c
-join users as u on c.user_id = u.user_id;
+join users as u on c.user_id = u.user_id
+order by c.charm_id;
 
 

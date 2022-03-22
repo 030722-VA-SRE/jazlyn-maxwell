@@ -12,20 +12,18 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private int balance;
-	private Role role;
 	
 	public User() {
 		super();
 	}
 
-	public User(int id, String name, String email, String password, int balance, Role role) {
+	public User(int id, String name, String email, String password, int balance) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.balance = balance;
-		this.role = role;
 	}
 
 	public int getId() {
@@ -67,18 +65,10 @@ public class User implements Serializable {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balance, email, id, name, password, role);
+		return Objects.hash(balance, email, id, name, password);
 	}
 
 	@Override
@@ -91,8 +81,7 @@ public class User implements Serializable {
 			return false;
 		User other = (User) obj;
 		return balance == other.balance && Objects.equals(email, other.email) && id == other.id
-				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role);
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password);
 	}
 	
 }
