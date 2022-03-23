@@ -27,6 +27,7 @@ public class CharmServiceTest {
 	static Map<String, List<String>> queryParams;
 	static List<Charm> charms = new ArrayList<>();
 	static Charm charm1;
+	static Charm charm2;
 	
 	@BeforeAll
 	public static void init() {
@@ -34,6 +35,7 @@ public class CharmServiceTest {
 		cServ = new CharmService(cDao);
 		queryParams = new HashMap<>();
 		charm1 = new Charm(1, "test", "info", 300, "test", "test", 1);
+		charm2 = new Charm(1, "test2", "info2", 50, "tes2", "test2", 2);
 		charms.add(charm1);
 	}
 	
@@ -64,8 +66,9 @@ public class CharmServiceTest {
 
 	@Test
 	public void testUpdateCharm() {
+		when(cDao.getCharmById(anyInt())).thenReturn(charm1);
 		when(cDao.updateCharm(any(Charm.class))).thenReturn(true);
-		assertEquals(true, cServ.updateCharm(charm1));
+		assertEquals(true, cServ.updateCharm(charm2));
 	}
 	
 	@Test
