@@ -9,9 +9,7 @@ create table users(
 	user_name varchar(50) not null,
 	user_email varchar(50) unique not null,
 	user_pass varchar(50) not null,
-	user_balance integer not null,
-	user_role varchar(50) not null 
-	check (user_role in ('USER', 'SELLER', 'ADMIN'))
+	user_balance integer not null
 );
 
 create table charms(
@@ -25,14 +23,14 @@ create table charms(
 );
 
 -- Insert values into tables
-insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
-	('Salubra', 'charm.lover@hallow.nest', '12345678', 500, 'ADMIN'),
-	('Sly', 'great.nailsage@hallow.nest', '12345678', 250, 'SELLER'),
-	('Leg Eater', 'leg.eater@hallow.nest', '12345678', 100, 'SELLER'),
-	('Iselda', 'mrs.cartographer@hallow.nest', '12345678', 300, 'SELLER'),
-	('Candelaria', 'candelaria.ladrona@miracle.com', '12345678', 2500, 'ADMIN'),
-	('Hornet', 'princess.knight@hallow.nest', '12345678', 850, 'USER'),
-	('Penitent One', 'mea.culpa@miracle.com', '12345678', 500, 'USER');
+insert into users(user_name, user_email, user_pass, user_balance) values 
+	('Salubra', 'charm.lover@hallow.nest', '12345678', 500),
+	('Sly', 'great.nailsage@hallow.nest', '12345678', 250),
+	('Leg Eater', 'leg.eater@hallow.nest', '12345678', 100),
+	('Iselda', 'mrs.cartographer@hallow.nest', '12345678', 300),
+	('Candelaria', 'candelaria.ladrona@miracle.com', '12345678', 2500),
+	('Hornet', 'princess.knight@hallow.nest', '12345678', 850),
+	('Penitent One', 'mea.culpa@miracle.com', '12345678', 500);
 	
 insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_country, user_id) values
 	('Lifeblood Heart', 'When resting, the bearer will gain a coating of lifeblood that protects from a modest amount of damage.', 250, 'Forgotten Crossroads', 'Hallownest', 1),
@@ -56,10 +54,10 @@ insert into charms(charm_name, charm_desc, charm_price, charm_region, charm_coun
 
 
 -- Insert Test Users
-insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
-	('Admin', 'admin@test.com', 'admin', 1000, 'ADMIN'),
-	('Seller', 'seller@test.com', 'seller', 1000, 'SELLER'),
-	('User', 'user@test.com', 'user', 1000, 'USER');
+--insert into users(user_name, user_email, user_pass, user_balance, user_role) values 
+--	('Admin', 'admin@test.com', 'admin', 1000, 'ADMIN'),
+--	('Seller', 'seller@test.com', 'seller', 1000, 'SELLER'),
+--	('User', 'user@test.com', 'user', 1000, 'USER');
 
 -- Display table contents
 select * from charms as c

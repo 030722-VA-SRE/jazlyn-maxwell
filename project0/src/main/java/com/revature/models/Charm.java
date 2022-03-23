@@ -18,22 +18,6 @@ public class Charm {
 		super();
 	}
 	
-	public Charm(int id, int price) {
-		this();
-		this.id = id;
-		this.price = price;
-	}
-	
-	public Charm(String name, String description, int price, String region, String country, User seller) {
-		this();
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.region = region;
-		this.country = country;
-		this.seller = seller;
-	}
-	
 	public Charm(int id, String name, String description, int price, String region, String country, int sellerId) {
 		this();
 		this.id = id;

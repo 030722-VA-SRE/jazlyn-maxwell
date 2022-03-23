@@ -18,7 +18,7 @@ public class User implements Serializable {
 	}
 
 	public User(int id, String name, String email, String password, int balance) {
-		super();
+		this();
 		this.id = id;
 		this.name = name;
 		this.email = email;
