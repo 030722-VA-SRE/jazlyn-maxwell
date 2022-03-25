@@ -8,4 +8,5 @@ import com.revature.models.Charm;
 @Repository
 public interface CharmRepository extends JpaRepository<Charm, Integer> {
 
+	public Charm findCharmByName(String name);
 }

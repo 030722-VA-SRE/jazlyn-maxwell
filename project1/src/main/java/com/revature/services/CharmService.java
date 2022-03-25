@@ -2,6 +2,8 @@ package com.revature.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +29,37 @@ public class CharmService {
 		return cRepo.getById(id);
 	}
 	
+	@Transactional
 	public Charm createCharm(Charm charm) {
 		return cRepo.save(charm);
 	}
 	
+	@Transactional
 	public Charm updateCharm(Charm charm) {
-		//TODO
-		return null;
+		 Charm charmUpdate = cRepo.getById(charm.getId());
+		// Validate input
+			if (charm.getName() != null && !charm.getName().equals(charmUpdate.getName())) {
+				charmUpdate.setName(charm.getName());
+			}
+			if (charm.getDescription() != null && !charm.getDescription().equals(charmUpdate.getDescription())) {
+				charmUpdate.setDescription(charm.getDescription());
+			}
+			if (charm.getPrice() != charmUpdate.getPrice()) {
+				charmUpdate.setPrice(charm.getPrice());
+			}
+			if (charm.getLocation() != null && charm.getLocation().getId() != charmUpdate.getLocation().getId()) {
+				charmUpdate.setLocation(charm.getLocation());
+			}
+			if (charm.getSeller() != null && charm.getSeller().getId() != charmUpdate.getSeller().getId()) {
+				charmUpdate.getSeller().setId(charm.getSeller().getId());
+			}
+			return cRepo.save(charmUpdate);
 	}
 	
-	public boolean deleteCharm(Charm charm) {
-		//TODO
-		return false;
+	@Transactional
+	public void deleteCharm(int id) {
+		Charm charm = cRepo.getById(id);
+		cRepo.delete(charm);
 	}
 	
 	
