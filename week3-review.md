@@ -104,11 +104,19 @@
 
 ## Spring MVC
 1.	Explain the MVC architecture and how HTTP requests are processed in the architecture
+	- MVC stands for Model View Controller. MVC uses separation of concerns to break up the frontend and backend of an application. HTTP requests are handled by the controller. The controller has methods to hanle each request at a particular endpoint and accesses the model (backend logic) to perform the requested functionality. A controller may return either raw data (often in JSON) or a View (html document).
 2.	What is the role of the DispatcherServlet? What about the ViewResolver?
+	- The DispatcherServlet accepts all requests and then maps them to the relevant controller.
+	- The ViewResolver maps the view names used in the implementation of a controller to an actual view.
 3.	How would you declare which HTTP requests you’d like a controller to process?
+	- A Controller can use the `@RequestMapping` annotation to only accept requests made to a certain path.
 4.	What is the difference between @RequestMapping and @GetMapping?
+	- `@RequestMapping` takes a path and a verb as parameters.
+	- `@GetMapping` specifies the verb 'get' as part of the annotation istself, so only takes a path as a parameter. Other similar maaping methods exist for the other HTTP verbs.
 5.	How to declare the data format your controller expects from requests or will create in responses?
 6.	What annotation would you use to bypass the ViewResolver?
+	- `@ResponseBody` is used to bypass the ViewRewsolver. It tells Spring that the controller method will return raw data as a response.
+	- `@RestController` implicitly includes `@ResponseBody` on all methods in that class.
 7.	How would you extract query and path parameters from a request URL in your controller?
 8.	What concerns is the controller layer supposed to handle vs the service layer?
 9.	How would you specify HTTP status codes to return from your controller?
