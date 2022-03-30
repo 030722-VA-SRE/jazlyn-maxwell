@@ -48,22 +48,59 @@
 
 ## CSS
 1.	What is CSS? what are the different ways of styling an html file?
-	- Cascading Style Sheets (CSS) 
+	- Cascading Style Sheets (CSS) is the language used to add style to an html document. CSS describes how an html element should be displayed.
+	- html files can be styled with inline, internal, or external css styling. (html question 12)
 2.	Which way has highest priority when styles cascade: inline, internal, and external stylesheets. Which is best practice? Why?
+	- Inline has the highest priority, then internal, then external.
+	- External style sheets are the best practice. External style sheets can be reused across all pages within a website in order to maintain a consistent style throughout the site.
 3.	What are the different CSS selectors? Write the syntax for each.
+	- Selectors are patterns used to select the element(s) to be styled by a specific command.
+	- An html element can be selected with the tag name. For example, all `<p>` elements can be selected with the selector `p`.
+	- All members of a given class can be selected with the class name. All elements where `class=heading` can be selected with the selector `.heading`.
+	- A specific element with an id can be selected with the value of the id. For example an element with attribute `id=pizzaDiv` can be selected with the selector `#pizzaDiv`.
+	- Selectors can be combined to target more and more specific elements. In CSS, the most specific selector has priority over the styling of an element.
 
 ## Spring Core
 1.	What are Spring Projects and Spring Modules?
+	- Spring Projects are implementations of the Spring framework that focus on specific industry concerns. Spring Projects include different modules, dependencies, and default configurations geared towards addressing a specific concern. Different Spring Projects include Spring Boot, Spring Security, Spring Cloud, and Spring Data.
+	- Spring Modules are different features that within the Spring Framework which address a specific sliver of functionality within an application. An application built using the Spring Framework will levergae several Spring Modules in order to implement different parts of the application. Spring Modules include Spring Core, Spring Beans, Spring Context, Spring WebMVC, Spring AOP, and Spring ORM.
 2.	What is IOC and what does the IOC Container do?
+	- Inversion of Control (IOC) is a design principle that addresses coupling within a code base. A class will give up control over its dependencies in order to reduce the coupling between the two classes.
+	- The IOC Container is responsible for handling dependencies within an application. The IOC container will instantiate and provide dependencies to classes to reduce the coupling between them.
+	- The IOC Container specifically manages depecndencies between Spring Beans. The IOC Container handles instantiation and destruction of a Bean.
 3.	What is dependency injection and what are some of the benefits of using dependency injection?
+	- Dependency Injection is how Spring implements IoC. When a client class uses the features of a service class, it requires an implementation of that class in order to use its class methods. With dependency injection, a different class (managed by Spring) will provide the instance of the service class to the client class. This separates the responsibility of managing dependencies from the class itself.
+	- Dependency injection reduces coupling between classes. Loosely coupled code is easier to maintain, test, read, extend, and reuse. Dependency injection allows Spring to manage the lifecycle of a Bean for us.
 4.	What types of dependency injection does Spring support?
+	- Spring supports field injection, setter/method injection, and constructor injection.
 5.	What are some differences between BeanFactory and ApplicationContext? Which one eagerly instantiates your beans?
+	- The BeanFactory is an older version of the IOC Container. It used lazy loading to instantiate Beans.
+	- ApplicaitonContext is the current IOC Contatiner version. It eagerly instantiates Beans.
 6.	What is the Spring Bean lifecycle?
+	- The Life Cycle of a Spring bean is the collection of steps the responsible IOC Container needs to take in order to correctly instantiate and destroy the bean. The framework may require several pre- and post-initialization and pre- and post-destruction callback methods as part of a bean's Life Cycle.
+	- The Bean Life Cycle may be customized.
 7.	What is bean wiring? What about autowiring?
+	- Bean wiring refers to the establishment of dependencies between beans.
+	- Autowiring allows Spring to manage the establishment of dependencies. We use the `@Autowired` annotation to inform Spring that a bean should be managed as a dependency.
 8.	What are the different ways that Spring can wire beans?
+	- Field injection is done by annotating the field with `@Autowired`. Field injection is discouraged, as it violates data encapsulation.
+	- Setter/Method injection is done by annotating a setter method for the field with `@Autowired`.
+	- Constructor injection is done by annotating the class constructor with `@Autowired`. This one annotation can be used to wire multiple beans.
 9.	What are the scopes of Spring beans? Which is default?
+	- The Singleton scope of a Spring bean will create a bean once, then return the same instance to all classes requesting the bean. The Singleton scope is the default.
+	- Prototype scope returns a new instance every time a bean is requested.
+	- There are also three Web Related scopes.
+		- The Request scope returns a new bean per HTTP Request.
+		- The Session scope returns a new bean per HTTP Session.
+		- The Global scope returns a new bean per global HTTP Session.
 10.	What does the @Configuration and @Bean annotations do?
+	- The `@Configuration` annotation is placed over a class that uses one or more `@Bean` methods. This annotation tells Spring to generate bean definitions and service requests for those beans at runtime.
+	- The `@Bean` annotation is placed over a method to signify that the returned object should be managed by Spring.
 11.	List some stereotype annotations. What are the differences between these?
+	- `@Component` is the standard stereotype annotation. It is used to mark a class as a managed bean. Other seterotype annotations include this annotation implicitly.
+	- `@Service` marks a class as a service component.
+	- `@Controller` is used to signify that a class is a controller and handles HTTP requests in conjunction with Spring WebMVC.
+	- `@Repository` denotes a repository or dao. A repository interacts with the persistence layer of an application in conjunction with SpringData JPA.
 
 ## Spring MVC
 1.	Explain the MVC architecture and how HTTP requests are processed in the architecture
