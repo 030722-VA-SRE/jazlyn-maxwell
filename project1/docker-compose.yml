@@ -13,7 +13,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./logs/application.log:/logs/application.log
+      - ../logs/application.log:/logs/application.log
   postgres:
     image: postgres
     ports:
@@ -28,7 +28,7 @@ services:
     container_name: promtail_container
     volumes:
       - ./promtail/promtail-docker-config.yml:/etc/promtail/docker-config.yaml
-      - ./logs/application.log:/var/log/application.log
+      - ../logs/application.log:/var/log/application.log
     command: "--config.file=/etc/promtail/docker-config.yaml"
   loki:
     image: grafana/loki:latest

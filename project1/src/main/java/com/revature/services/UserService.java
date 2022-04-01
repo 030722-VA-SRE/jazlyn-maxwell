@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.revature.repositories.UserRepository;
 public class UserService {
 
 	private UserRepository uRepo;
+	private static final Logger Log = LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
 	public UserService(UserRepository uRepo) {
@@ -32,6 +35,7 @@ public class UserService {
 	
 	@Transactional
 	public User createUser(User user) {
+		Log.info("User created ", user);
 		return uRepo.save(user);
 	}
 	
@@ -51,12 +55,14 @@ public class UserService {
 			if (user.getRole() != null && !user.getRole().equals(userUpdate.getRole())) {
 				userUpdate.setRole(user.getRole());
 			}
+			Log.info("User updated ", userUpdate);
 			return uRepo.save(userUpdate);
 	}
 	
 	@Transactional
 	public void deleteUser(int id) {
 		User user = uRepo.getById(id);
+		Log.info("User deleted ", user);
 		uRepo.delete(user);
 	}
 

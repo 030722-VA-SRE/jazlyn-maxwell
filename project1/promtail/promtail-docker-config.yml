@@ -6,9 +6,12 @@ position:
   filename: /tmp/positions.yaml
   
 clients:
-  - url http://loki:3100/loki/api/v1/push
-
+  - url: http://loki:3100/loki/api/v1/push
+    external_labels:
+      host: docker
+  
 scrape_configs:
+
   - job_name: docker
     pipeline_stages:
       - docker: {}
