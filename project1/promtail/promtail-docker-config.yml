@@ -2,7 +2,7 @@ server:
   http_listen_port: 9080
   grpc_listen_port: 0
   
-position:
+positions:
   filename: /tmp/positions.yaml
   
 clients:
@@ -11,11 +11,16 @@ clients:
       host: docker
   
 scrape_configs:
-
-  - job_name: docker
-    pipeline_stages:
-      - docker: {}
+  - job_name: loki
     static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: charm-shop
+          __path__: /var/log/application.log
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
       - labels:
-        job: docker
-        __path__: /var/lib/docker/containers/*/*-json.log
+          level:
