@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.revature.config.JwtTokenUtil;
 import com.revature.dtos.UserDto;
 import com.revature.models.User;
 import com.revature.repositories.UserRepository;
