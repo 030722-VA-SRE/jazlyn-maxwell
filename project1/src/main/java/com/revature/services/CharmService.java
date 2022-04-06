@@ -1,12 +1,14 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.dtos.CharmDto;
 import com.revature.models.Charm;
 import com.revature.repositories.CharmRepository;
 
@@ -21,21 +23,22 @@ public class CharmService {
 		this.cRepo = cRepo;
 	}
 	
-	public List<Charm> getCharms() {
-		return cRepo.findAll();
+	public List<CharmDto> getCharms() {
+		List<Charm> charms = cRepo.findAll();
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
 	}
 	
-	public Charm getCharmById(int id) {
-		return cRepo.getById(id);
-	}
-	
-	@Transactional
-	public Charm createCharm(Charm charm) {
-		return cRepo.save(charm);
+	public CharmDto getCharmById(int id) {
+		return new CharmDto(cRepo.getById(id));
 	}
 	
 	@Transactional
-	public Charm updateCharm(Charm charm) {
+	public CharmDto createCharm(Charm charm) {
+		return new CharmDto(cRepo.save(charm));
+	}
+	
+	@Transactional
+	public CharmDto updateCharm(Charm charm) {
 		 Charm charmUpdate = cRepo.getById(charm.getId());
 		// Validate input
 			if (charm.getName() != null && !charm.getName().equals(charmUpdate.getName())) {
@@ -53,7 +56,7 @@ public class CharmService {
 			if (charm.getSeller() != null && charm.getSeller().getId() != charmUpdate.getSeller().getId()) {
 				charmUpdate.getSeller().setId(charm.getSeller().getId());
 			}
-			return cRepo.save(charmUpdate);
+			return new CharmDto(cRepo.save(charmUpdate));
 	}
 	
 	@Transactional

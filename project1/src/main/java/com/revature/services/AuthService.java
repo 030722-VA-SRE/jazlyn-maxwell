@@ -1,11 +1,15 @@
 package com.revature.services;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 
 import com.revature.config.JwtTokenUtil;
 import com.revature.dtos.UserDto;
+import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.repositories.UserRepository;
 
@@ -35,5 +39,21 @@ public class AuthService {
 	public String generateToken(UserDto principal) {
 		User user = uRepo.getById(principal.getId());
 		return jUtil.generateToken(user);
+	}
+	
+	public boolean checkPermission(String token, Role... allowedRoles) {
+		if (token == null) {
+			return false;
+		}
+		
+		String email = jUtil.getEmailFromToken(token);
+		User principal = uRepo.findUserByEmail(email);
+		MDC.put("principal", email);
+		
+		if (principal != null && Arrays.asList(allowedRoles).contains(principal.getRole())) {
+			return true;
+		}
+		
+		return false;
 	}
 }

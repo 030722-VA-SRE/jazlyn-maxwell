@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.dtos.UserDto;
 import com.revature.models.User;
 import com.revature.repositories.UserRepository;
 
@@ -25,12 +27,13 @@ public class UserService {
 		this.uRepo = uRepo;
 	}
 	
-	public List<User> getUsers() {
-		return uRepo.findAll();
+	public List<UserDto> getUsers() {
+		List<User> users = uRepo.findAll();
+		return users.stream().map(u -> new UserDto(u)).collect(Collectors.toList());
 	}
 	
-	public User getUserById(int id) {
-		return uRepo.getById(id);
+	public UserDto getUserById(int id) {
+		return new UserDto(uRepo.getById(id));
 	}
 	
 	@Transactional
