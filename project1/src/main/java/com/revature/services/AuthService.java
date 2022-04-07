@@ -5,12 +5,14 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revature.config.JwtTokenUtil;
 import com.revature.dtos.UserDto;
 import com.revature.exceptions.AuthenticationException;
+import com.revature.exceptions.AuthorizationException;
 import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.repositories.UserRepository;
@@ -23,6 +25,7 @@ public class AuthService {
 	private JwtTokenUtil jUtil;
 	private static final Logger Log = LoggerFactory.getLogger(AuthService.class);
 	
+	@Autowired
 	public AuthService(UserRepository uRepo, PasswordEncoder passwordEncoder, JwtTokenUtil jUtil) {
 		super();
 		this.uRepo = uRepo;
@@ -47,7 +50,7 @@ public class AuthService {
 	
 	public boolean checkPermission(String token, Role... allowedRoles) {
 		if (token == null) {
-			return false;
+			throw new AuthorizationException();
 		}
 		
 		String email = jUtil.getEmailFromToken(token);

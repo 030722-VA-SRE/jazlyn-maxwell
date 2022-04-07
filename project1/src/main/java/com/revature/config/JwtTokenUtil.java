@@ -58,8 +58,8 @@ public class JwtTokenUtil {
 	
 	public String doGenerateToken(Map<String, Object> claims, String subject) {
 		return Jwts.builder()
-				.setSubject(subject)
 				.setClaims(claims)
+				.setSubject(subject)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
 				.signWith(SignatureAlgorithm.HS512, secret)
