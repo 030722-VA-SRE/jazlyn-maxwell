@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import com.revature.services.AuthService;
 public class AuthController {
 	
 	private AuthService aServ;
+	private static Logger log = LoggerFactory.getLogger(AuthController.class);
 	
 	@Autowired
 	public AuthController(AuthService aServ) {
@@ -29,12 +32,14 @@ public class AuthController {
 		UserDto principal = aServ.login(email, password);
 		
 		if (principal == null) {
+			log.info("Failed attempt to login with email " + email);
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		
 		String token = aServ.generateToken(principal);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", token);
+		log.info("Successful login with email " + email);
 		
 		return new ResponseEntity<>(principal, headers, HttpStatus.ACCEPTED);
 	}

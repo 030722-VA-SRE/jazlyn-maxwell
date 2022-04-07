@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.exceptions.LocationNotFoundException;
 import com.revature.models.Location;
 import com.revature.repositories.LocationRepository;
 
@@ -26,7 +27,7 @@ public class LocationService {
 	}
 	
 	public Location getLocationById(int id) {
-		return lRepo.getById(id);
+		return lRepo.findById(id).orElseThrow(LocationNotFoundException::new);
 	}
 	
 	@Transactional
@@ -36,7 +37,7 @@ public class LocationService {
 	
 	@Transactional
 	public Location updateLocation(Location location) {
-		 Location locationUpdate = lRepo.getById(location.getId());
+		 Location locationUpdate = lRepo.findById(location.getId()).orElseThrow(LocationNotFoundException::new);
 		// Validate input
 			if (location.getRegion() != null && !location.getRegion().equals(locationUpdate.getRegion())) {
 				locationUpdate.setRegion(location.getRegion());
@@ -49,7 +50,7 @@ public class LocationService {
 	
 	@Transactional
 	public void deleteLocation(int id) {
-		Location location = lRepo.getById(id);
+		Location location = lRepo.findById(id).orElseThrow(LocationNotFoundException::new);
 		lRepo.delete(location);
 	}
 }

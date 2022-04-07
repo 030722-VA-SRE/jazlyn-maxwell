@@ -1,11 +1,11 @@
 -- add sample data to users table
-insert into users(name, email, password, role) values ('Salubra', 'charm.lover@hallow.nest', '12345678', 'ADMIN');
-insert into users(name, email, password, role) values ('Sly', 'great.nailsage@hallow.nest', '12345678', 'SELLER');
-insert into users(name, email, password, role) values ('Leg Eater', 'leg.eater@hallow.nest', '12345678', 'SELLER');
-insert into users(name, email, password, role) values ('Iselda', 'mrs.cartographer@hallow.nest', '12345678', 'SELLER');
-insert into users(name, email, password, role) values ('Candelaria', 'candelaria.ladrona@miracle.com', '12345678', 'SELLER');
-insert into users(name, email, password, role) values ('Hornet', 'princess.knight@hallow.nest', '12345678', 'USER');
-insert into users(name, email, password, role) values ('Penitent One', 'mea.culpa@miracle.com', '12345678', 'USER');
+insert into users(name, email, password, role) values ('Salubra', 'charm.lover@hallow.nest', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'ADMIN');
+insert into users(name, email, password, role) values ('Sly', 'great.nailsage@hallow.nest', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'SELLER');
+insert into users(name, email, password, role) values ('Leg Eater', 'leg.eater@hallow.nest', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'SELLER');
+insert into users(name, email, password, role) values ('Iselda', 'mrs.cartographer@hallow.nest', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'SELLER');
+insert into users(name, email, password, role) values ('Candelaria', 'candelaria.ladrona@miracle.com', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'SELLER');
+insert into users(name, email, password, role) values ('Hornet', 'princess.knight@hallow.nest', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'USER');
+insert into users(name, email, password, role) values ('Penitent One', 'mea.culpa@miracle.com', '$2a$12$e660zO9oVZzvu2vIZKUgoeydORz8Qsxz9mtU5xUHAnlngf53loAKC', 'USER');
 
 -- add sample data to locations table 
 insert into locations(region, world) values ('Forgotten Crossroads', 'Hallownest');
