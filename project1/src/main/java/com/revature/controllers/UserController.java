@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.dtos.UserDto;
+import com.revature.exceptions.AuthorizationException;
 import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.services.AuthService;
@@ -38,7 +39,7 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<UserDto>> getUsers(@RequestHeader(value = "Authorization", required = false) String token) {
 		if (!aServ.checkPermission(token, Role.SELLER, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		return new ResponseEntity<>(uServ.getUsers(), HttpStatus.OK);	
 	}
@@ -46,7 +47,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> getUserById(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable("id") int id) {
 		if (!aServ.checkPermission(token, Role.SELLER, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		return new ResponseEntity<>(uServ.getUserById(id), HttpStatus.OK);	
 	}
@@ -60,7 +61,7 @@ public class UserController {
 	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable("id") int id, @RequestBody User user) {
 		if (!aServ.checkPermission(token, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		user.setId(id);
 		return new ResponseEntity<>(uServ.updateUser(user), HttpStatus.OK);
@@ -69,7 +70,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUser(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable("id") int id) {
 		if (!aServ.checkPermission(token, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		uServ.deleteUser(id);
 		return new ResponseEntity<>("User was deleted.", HttpStatus.OK);

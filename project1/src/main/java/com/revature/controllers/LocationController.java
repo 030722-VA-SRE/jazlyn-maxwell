@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exceptions.AuthorizationException;
 import com.revature.models.Location;
 import com.revature.models.Role;
 import com.revature.services.AuthService;
@@ -47,7 +48,7 @@ public class LocationController {
 	@PostMapping
 	public ResponseEntity<Location> postLocation(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody Location location) {
 		if (!aServ.checkPermission(token, Role.SELLER, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		Location newLocation = lServ.createLocation(location);
 		return new ResponseEntity<>(newLocation, HttpStatus.CREATED);
@@ -56,7 +57,7 @@ public class LocationController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Location> updateLocation(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable("id") int id, @RequestBody Location location) {
 		if (!aServ.checkPermission(token, Role.SELLER, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		location.setId(id);
 		return new ResponseEntity<>(lServ.updateLocation(location), HttpStatus.OK);
@@ -65,7 +66,7 @@ public class LocationController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteLocation(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable("id") int id) {
 		if (!aServ.checkPermission(token, Role.SELLER, Role.ADMIN)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthorizationException();
 		}
 		lServ.deleteLocation(id);
 		return new ResponseEntity<>("Location was deleted.", HttpStatus.OK);

@@ -1,5 +1,10 @@
 package com.revature.services;
 
+import static com.revature.repositories.CharmRepository.descriptionContains;
+import static com.revature.repositories.CharmRepository.hasName;
+import static com.revature.repositories.CharmRepository.hasPrice;
+import static org.springframework.data.jpa.domain.Specification.where;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.dtos.CharmDto;
+import com.revature.exceptions.CharmNotFoundException;
 import com.revature.models.Charm;
 import com.revature.repositories.CharmRepository;
 
@@ -27,9 +33,45 @@ public class CharmService {
 		List<Charm> charms = cRepo.findAll();
 		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
 	}
+
+	public List<CharmDto> getCharmsByNameAndDescriptionAndPrice(String name, String description, int price) {
+		List<Charm> charms = cRepo.findAll(where(hasName(name)).and(descriptionContains(description)).and(hasPrice(price)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByNameAndDescription(String name, String description) {
+		List<Charm> charms = cRepo.findAll(where(hasName(name)).and(descriptionContains(description)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByNameAndPrice(String name, int price) {
+		List<Charm> charms = cRepo.findAll(where(hasName(name)).and(hasPrice(price)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByDescriptionAndPrice(String description, int price) {
+		List<Charm> charms = cRepo.findAll(where(descriptionContains(description)).and(hasPrice(price)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByName(String name) {
+		List<Charm> charms = cRepo.findAll(where(hasName(name)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByDescription(String description) {
+		List<Charm> charms = cRepo.findAll(where(descriptionContains(description)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
+
+	public List<CharmDto> getCharmsByPrice(int price) {
+		List<Charm> charms = cRepo.findAll(where(hasPrice(price)));
+		return charms.stream().map(c -> new CharmDto(c)).collect(Collectors.toList());
+	}
 	
 	public CharmDto getCharmById(int id) {
-		return new CharmDto(cRepo.getById(id));
+		Charm charm = cRepo.findById(id).orElseThrow(CharmNotFoundException::new);
+		return new CharmDto(charm);
 	}
 	
 	@Transactional
@@ -39,7 +81,7 @@ public class CharmService {
 	
 	@Transactional
 	public CharmDto updateCharm(Charm charm) {
-		 Charm charmUpdate = cRepo.getById(charm.getId());
+		 Charm charmUpdate = cRepo.findById(charm.getId()).orElseThrow(CharmNotFoundException::new);
 		// Validate input
 			if (charm.getName() != null && !charm.getName().equals(charmUpdate.getName())) {
 				charmUpdate.setName(charm.getName());
@@ -61,7 +103,7 @@ public class CharmService {
 	
 	@Transactional
 	public void deleteCharm(int id) {
-		Charm charm = cRepo.getById(id);
+		Charm charm = cRepo.findById(id).orElseThrow(CharmNotFoundException::new);
 		cRepo.delete(charm);
 	}
 	
